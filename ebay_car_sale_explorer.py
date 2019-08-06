@@ -35,11 +35,39 @@ print(autos.describe(include="all"))
 autos["price"] = autos["price"].str.replace("$", "")
 autos["price"] = autos["price"].str.replace(",", "")
 
-autos["price"] = autos["price"].astype("int64")
+autos["price"] = autos["price"].astype("int")
 
-#print(autos["price"].describe(include="all"))
+
 # Remove non-numeric characters and renaming column name for odometer
-#print(autos["odometer"])
+
 autos["odometer"] = autos["odometer"].str.replace("km", "")
 autos["odometer"] = autos["odometer"].str.replace(",", "")
+
+autos["odometer"] = autos["odometer"].astype("int")
+
+autos.rename({"odometer": "odometer_km"}, axis=1, inplace=True)
+
+# Exploring Price values
+print("There are " + str(autos["price"].unique().shape[0]) + " price values..")
+
+print("The min/max/median/mean for price column is as follows : ")
+
+print(autos["price"].describe())
+
+print(autos["price"].value_counts().head())
+
+print(autos["price"].value_counts().sort_index())
+
+# Exploring odometer_km values
+print("There are " + str(autos["odometer_km"].unique().shape[0]) + " Odometer values..")
+
+print("The min/max/median/mean for odometer_km column is as follows : ")
+
+print(autos["odometer_km"].describe())
+
+print(autos["odometer_km"].value_counts().head())
+
+print(autos["odometer_km"].value_counts().sort_index())
+
+
 
